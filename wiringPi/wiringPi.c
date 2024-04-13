@@ -1300,7 +1300,7 @@ int isA20(void)
   char line [120] ;
   char *d;
 	if ((cpuFd = fopen ("/proc/cpuinfo", "r")) == NULL)
-		piBoardRevOops ("Unable to open /proc/cpuinfo") ;
+		printf ("DANGER : /proc/cpuinfo file unreadable.");
 	  while (fgets (line, 120, cpuFd) != NULL)
 		{
 			if (strncmp (line, "Hardware", 8) == 0)
@@ -1308,24 +1308,30 @@ int isA20(void)
 		}
 		
 	fclose (cpuFd) ;
-	if (strncmp (line, "Hardware", 8) != 0)
-		piBoardRevOops ("No \"Hardware\" line") ;
-	
-  for (d = &line [strlen (line) - 1] ; (*d == '\n') || (*d == '\r') ; --d)
-    *d = 0 ;
-  if (wiringPiDebug)
-    printf ("piboardRev: Hardware string: %s\n", line) ;
-	
-	if (strstr(line,"sun7i") != NULL)			
-	{
-		if (wiringPiDebug)
-		printf ("Hardware:%s\n",line) ;
-		return 1 ;
+	if (strncmp (line, "Hardware", 8) != 0) {
+		if ((cpuFd = fopen("/proc/device-tree/model","r")) == NULL) {
+			piBoardRevOops("Unable to open /proc/device-tree/model");
+		}
 	}
-	else
-	{
+	if (fgets(line, sizeof(line), cpuFd) == NULL) {
+		fclose(cpuFd);
+	}
+	fclose(cpuFd);
+	
+	char*d
+	for (d = &line[strlen(line) - 1]; (*d == '\n') || (*d == '\r'); --d)
+		*d = 0;
+	if (wiringPiDebug) {
+		printf ("piboardRev: Hardware string: %s\n", line) ;
+	}
+	
+	if (strstr(line,"sun7i") != NULL) {
 		if (wiringPiDebug)
-		printf ("Hardware:%s\n",line) ;
+		printf ("Hardware: %s\n",line) ;
+		return 1 ;
+	} else {
+		if (wiringPiDebug)
+		printf ("Hardware: %s\n",line) ;
 		return 0 ;
 	}
 }
@@ -1340,7 +1346,7 @@ int isH3(void)
   char line [120] ;
   char *d;
 	if ((cpuFd = fopen ("/proc/cpuinfo", "r")) == NULL)
-		piBoardRevOops ("Unable to open /proc/cpuinfo") ;
+		printf ("DANGER : /proc/cpuinfo file is unreadable.");
 	  while (fgets (line, 120, cpuFd) != NULL)
 		{
 			if (strncmp (line, "Hardware", 8) == 0)
@@ -1348,24 +1354,36 @@ int isH3(void)
 		}
 		
 	fclose (cpuFd) ;
-	if (strncmp (line, "Hardware", 8) != 0)
-		piBoardRevOops ("No \"Hardware\" line") ;
+	if (strncmp (line, "Hardware", 8) != 0) {
+		if ((cpuFd = fopen("/proc/device-tree/model","r")) == NULL) {
+			piBoardRevOops("Unable to open /proc/device-tree/model");
+		}
+
+		if (fgets(line, sizeof(line), cpuFd) == NULL) {
+			fclose(cpuFd);
+		}
+		fclose(cpuFd);
+	}
+
+	char *d;
+	for (d = &line[strlen(line) - 1]; (*d == '\n') || (*d == '\r'); --d)
+	*d = 0;
 	
-  for (d = &line [strlen (line) - 1] ; (*d == '\n') || (*d == '\r') ; --d)
-    *d = 0 ;
-  if (wiringPiDebug)
-    printf ("piboardRev: Hardware string: %s\n", line) ;
+
+	if (wiringPiDebug) {
+		printf ("piboardRev: Hardware string: %s\n", line) ;
+	}
 	
 	if (strstr(line,"sun8i") != NULL)			//guenter von sun7i auf sun8i
 	{
 		if (wiringPiDebug)
-		printf ("Hardware:%s\n",line) ;
+		printf ("Hardware: %s\n",line) ;
 		return 1 ;
 	}
 	else
 	{
 		if (wiringPiDebug)
-		printf ("Hardware:%s\n",line) ;
+		printf ("Hardware: %s\n",line) ;
 		return 0 ;
 	}
 }
