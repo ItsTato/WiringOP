@@ -1298,7 +1298,6 @@ int isA20(void)
 {
   FILE *cpuFd ;
   char line [120] ;
-  char *d;
 	if ((cpuFd = fopen ("/proc/cpuinfo", "r")) == NULL)
 		printf ("DANGER : /proc/cpuinfo file unreadable.");
 	  while (fgets (line, 120, cpuFd) != NULL)
@@ -1318,7 +1317,7 @@ int isA20(void)
 	}
 	fclose(cpuFd);
 	
-	char*d
+	char *d;
 	for (d = &line[strlen(line) - 1]; (*d == '\n') || (*d == '\r'); --d)
 		*d = 0;
 	if (wiringPiDebug) {
@@ -1342,12 +1341,11 @@ int isA20(void)
 /*add for H3 guenter*/
 int isH3(void)
 {
-  FILE *cpuFd ;
-  char line [120] ;
-  char *d;
+	FILE *cpuFd ;
+	char line [120] ;
 	if ((cpuFd = fopen ("/proc/cpuinfo", "r")) == NULL)
 		printf ("DANGER : /proc/cpuinfo file is unreadable.");
-	  while (fgets (line, 120, cpuFd) != NULL)
+		while (fgets (line, 120, cpuFd) != NULL)
 		{
 			if (strncmp (line, "Hardware", 8) == 0)
 			break ;
@@ -1367,8 +1365,7 @@ int isH3(void)
 
 	char *d;
 	for (d = &line[strlen(line) - 1]; (*d == '\n') || (*d == '\r'); --d)
-	*d = 0;
-	
+		*d = 0;
 
 	if (wiringPiDebug) {
 		printf ("piboardRev: Hardware string: %s\n", line) ;
