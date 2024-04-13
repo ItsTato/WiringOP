@@ -1286,11 +1286,11 @@ int wiringPiFailure (int fatal, const char *message, ...)
 
 static void piBoardRevOops (const char *why)
 {
-  fprintf (stderr, "piBoardRev: Unable to determine board revision from /proc/cpuinfo\n") ;
-  fprintf (stderr, " -> %s\n", why) ;
-  fprintf (stderr, " ->  You may want to check:\n") ;
-  fprintf (stderr, " ->  http://www.lemaker.org/\n") ;  /*modify for BananaPro by LeMmaker team*/
-  exit (EXIT_FAILURE) ;
+	fprintf(stderr, "piBoardRev: Unable to determine board revision from /proc/cpuinfo\n");
+	fprintf(stderr, " -> %s\n", why);
+	fprintf(stderr, " ->  You may want to check:\n");
+	fprintf(stderr, " ->  http://www.lemaker.org/\n");  /*modify for BananaPro by LeMmaker team*/
+	exit(EXIT_FAILURE);
 }
 
 /*add for BananaPro by LeMaker team*/
