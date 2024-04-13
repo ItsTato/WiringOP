@@ -1485,7 +1485,9 @@ void piBoardId (int *model, int *rev, int *mem, int *maker, int *overVolted)
   char line [120] ;
   char *c ;
 
-  (void)piBoardRev () ;	// Call this first to make sure all's OK. Don't care about the result.
+  /* courtesy of Tato, skip test! =3
+(void)piBoardRev () ;	// Call this first to make sure all's OK. Don't care about the result.
+  */
 
   if ((cpuFd = fopen ("/proc/cpuinfo", "r")) == NULL)
     piBoardRevOops ("Unable to open /proc/cpuinfo") ;
