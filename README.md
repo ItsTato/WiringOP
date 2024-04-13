@@ -1,11 +1,11 @@
 # wiringOP README
 
-This is a modified WiringPi for OrangePi. We call it WiringOP.
-Test fo Orangepi pc
+This is a modified WiringPi for OrangePi called WiringOP.
+(This is a fork of the original WiringOP made for my own purposes.)
 
 ## Download
 ### For Orangepi Pi
-    git clone https://github.com/zhaolei/WiringOP.git -b h3 
+    git clone https://github.com/ItsTato/WiringOP.git
 ## Installation
     cd WiringOP
     chmod +x ./build
@@ -39,7 +39,4 @@ orangepi@orangepi:~$ gpio readall
  +-----+-----+----------+------+---+----++----+---+------+----------+-----+-----+
  | BCM | wPi |   Name   | Mode | V | Physical | V | Mode | Name     | wPi | BCM |
  +-----+-----+----------+------+---+--OrangePIPC--+------+----------+-----+-----+
-```    
-Thanks!
-
-
+```
